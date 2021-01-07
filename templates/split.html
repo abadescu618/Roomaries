@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Split Bill
+{% endblock %}
+
+{% block user %}
+    {{ user }}!
+{% endblock %}
+
+{% block main %}
+    <h2>Split the grocery bill with your roomies: </h2>
+    <p class="small">{{ code }}</p>
+    <br>
+
+    <p class="cost">Total grocery cost:</p>
+    <form action="/split" method="post">
+        <div class="form-outline">
+            <input type="text" class="form-control form-control-lg" name="totalCost" onkeyup="split(this.form)"/>
+        </div>
+
+        <div>
+            <hr>
+            <p class="cost">Per person cost:</p>
+            <div class="form-outline">
+                <input type="text" class="form-control form-control-lg" name="ppCost" disabled/>
+            </div>
+        </div>
+
+        <div>
+            <hr>
+            <p class="cost">Email your roomies to split the bill:</p>
+            <div class="form-outline">
+                <button class="btn btn-primary col-sm-3" type="submit" value="Email Now">Send Email Now</button>
+            </div>
+        </div>
+
+    </form>
+
+    <script type="text/javascript">
+        function split(f) {
+            f.ppCost.value = ((f.totalCost.value)/{{ roomie_count }}).toFixed(2);
+        }
+
+    </script>
+
+{% endblock %}

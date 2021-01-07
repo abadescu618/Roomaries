@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block user %}
+    {{ user }}!
+{% endblock %}
+
+{% block main %}
+    <h2>Updates to your grocery list: </h2>
+    <p class="small">{{ code }}</p>
+    <br>
+
+    <table class="table">
+        <thead>
+           <tr>
+                <th>Roomie</th>
+                <th>Action</th>
+                <th>Item</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in list_display %}
+            <tr>
+                <td>{{ item[0] }}</td>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+                <td>{{ item[3] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

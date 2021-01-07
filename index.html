@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block user %}
+    {{ user }}!
+{% endblock %}
+
+{% block main %}
+    <h1>Hello, {{ user }}!</h1>
+    <p class="small">{{ code }}</p>
+    <p>Welcome to <strong>Roomaries Grocery</strong>, where you can simplify the way you and your roomates keep track of your grocery shopping.</p>
+
+    <table class="table table-striped text-center">
+        <thead>
+           <tr>
+                <th><h3>Your total grocery spend this month:</h3></th>
+                <th><h3>Your average monthly grocery spend this year:</h3></th>
+                <th><h3>Your total grocery spend this year:</h3></th>
+                <th><h3>Your top 3 items:</h3></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="tableDetail">${{ total_month_pp }}</td>
+                <td class="tableDetail">${{ ytd_total_monthly_pp }}</td>
+                <td class="tableDetail">${{ total_year_pp }}</td>
+                <td>
+                    {% if length == 0 %}
+                        <p>Looks like you don't have a shopping history yet. Start creating one with your roomies today!</p>
+                    {% else %}
+                        {% for item in top3 %}
+                            <p class="tableDetail">{{ item }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

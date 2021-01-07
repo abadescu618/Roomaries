@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form action="/register" method="post">
+        <div class="form-group">
+            <p>First Name:</p>
+            <input autocomplete="off" autofocus class="form-control" name="first" type="text"/>
+        </div>
+
+        <div class="form-group">
+            <p>Last Name:</p>
+            <input autocomplete="off" autofocus class="form-control" name="last" type="text"/>
+        </div>
+
+        <div class="form-group">
+            <p>Email:</p>
+            <input autocomplete="off" autofocus class="form-control" name="email" type="text"/>
+        </div>
+        
+        <div class="form-group">
+            <p>Username:</p>
+            <input autocomplete="off" autofocus class="form-control" name="username" type="text"/>
+        </div>
+
+        <div class="form-group">
+            <p>Password:</p>
+            <input class="form-control" name="password" type="password"/>
+        </div>
+
+        <div class="form-group">
+            <p>Password (again):</p>
+            <input class="form-control" name="confirmation" type="password"/>
+        </div>
+
+        <div class="form-group">
+            <p>Create a unique 10-character identifier that will let your roomies find you!</p>
+            <input class="form-control" name="unique" type="password"/>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+
+{% endblock %}

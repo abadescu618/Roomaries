@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Current Groceries
+{% endblock %}
+
+{% block user %}
+    {{ user }}!
+{% endblock %}
+
+{% block main %}
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+            <h2>Your current grocery list: </h2>
+            <p class="small">{{ code }}</p>
+
+            {% if count == 0 %}
+                <p>Looks like you don't have any groceries on the list yet. Great job!</p>
+                <p>If you'd like to add any items to the list, use the form to the right.</p>
+
+            {% else %}
+                <form action="{{ url_for('remove') }}" method="post" name="updateList">
+                    <p class="col-sm-7">Update your list by checking the box next to each item and clicking the button to the right.</p>
+                    <button class="btn btn-primary col-sm-3" type="submit" value="Update All">Update All</button>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            {% for each in current_list %}
+                                                <input type="checkbox" class="form-check-input" name="removedItem" value="{{ emojidict[each] }} {{ each }}">{{ emojidict[each] }} {{ each }}</input>
+                                                <br>
+                                            {% endfor %}
+                                        </div>
+                                    </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+
+        </div>
+        <div class="col-sm">
+            <h2>Add to your list:</h2>
+            <p class="small">{{ code }}</p>
+            <form action="{{ url_for('add') }}" method="post" name="searchForm">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input autocomplete="off" autofocus class="form-control mr-sm-2" name="addedItem" type="text" value="Search..." id="mySearch" onfocus="this.value=''" placeholder="Search..." onkeyup="search()">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Add</button>
+                        </div>
+                    </div>
+                    <p class="small"></p>
+
+                    <div class="scrollBox">
+                        <ul id="groceryList" class="searchList">
+                            <li>
+                                    <input type="button" class="searchListItems" onclick="transferFieldCustom(this.value)" value="💭 custom" id="listSearch">
+                            </li>
+
+                            {% for each in combo %}
+                                <li>
+                                    <input type="button" class="searchListItems" onclick="transferField(this.value)" value="{{ each }}" id="listSearch">
+                                </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+    <!--Source: W3schools, Dynamic Drive-->
+    <script>
+        function search() {
+            var input, filter, ul, li, values, i, txtValue;
+            input = document.getElementById("mySearch");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("groceryList");
+            li = ul.getElementsByTagName("li");
+
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("input")[0];
+                txtValue = a.textContent || a.value || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+
+        function transferField(someval) {
+            document.searchForm.mySearch.value = someval;
+        }
+
+        function transferFieldCustom(someval) {
+            document.searchForm.mySearch.value = "Enter custom value here...";
+        }
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Your Roomies
+{% endblock %}
+
+{% block user %}
+    {{ user }}!
+{% endblock %}
+
+{% block main %}
+    {% if roomies != [] %}
+        {% if count == 1 %}
+            <h2>Your current roomie is:</h2>
+            <p class="small">{{ code }}</p>
+
+        {% else %}
+            <h2>Your current roomies are:</h2>
+            <p class="small">{{ code }}</p>
+
+        {% endif %}
+
+            <ul>
+                {% for each in roomies %}
+                    <li>{{ each }}</li>
+                {% endfor %}
+            </ul>
+
+        <p>If you'd like to register more roomies, just click the link below.</p>
+
+        <form method="get" action="/register">
+            <button class="btn btn-primary" type="submit">Register</button>
+        </form>
+
+    {% else %}
+        <p>Looks like your roomies haven't registered yet! Make sure they register using the link below.</p>
+
+        <form method="get" action="/register">
+            <button class="btn btn-primary" type="submit">Register</button>
+        </form>
+
+    {% endif %}
+{% endblock %}
